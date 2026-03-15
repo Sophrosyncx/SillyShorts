@@ -1,0 +1,1152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>SillyShorts 🩳</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --bg: #fff9f0;
+      --surface: #ffffff;
+      --border: #e8ddd0;
+      --text: #2d1f0f;
+      --muted: #8a7060;
+      --accent: #e800a0;
+      --accent2: #ffbe0b;
+      --accent3: #3a86ff;
+      --accent4: #8338ec;
+      --success: #06d6a0;
+      --danger: #ef233c;
+      --shadow: 0 4px 24px rgba(0,0,0,0.10);
+      --shadow-lg: 0 12px 40px rgba(0,0,0,0.16);
+      --radius: 16px;
+      --font-display: 'Fredoka One', cursive;
+      --font-body: 'Nunito', sans-serif;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: var(--font-body);
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* ─── HEADER ─── */
+    header {
+      background: var(--surface);
+      border-bottom: 2px solid var(--border);
+      padding: 0 24px;
+      height: 64px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.07);
+    }
+    .logo {
+      font-family: var(--font-display);
+      font-size: 28px;
+      color: var(--accent);
+      letter-spacing: 0.5px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .logo-emoji { font-size: 26px; }
+    .header-actions { display: flex; gap: 10px; align-items: center; }
+
+    /* ─── BUTTONS ─── */
+    .btn {
+      font-family: var(--font-body);
+      font-weight: 700;
+      font-size: 14px;
+      border: none;
+      cursor: pointer;
+      border-radius: 10px;
+      padding: 9px 18px;
+      transition: transform 0.1s, box-shadow 0.1s;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .btn:active { transform: scale(0.96); }
+    .btn-primary {
+      background: var(--accent);
+      color: #fff;
+      box-shadow: 0 3px 10px rgba(232,0,160,0.35);
+    }
+    .btn-primary:hover { box-shadow: 0 5px 16px rgba(232,0,160,0.45); transform: translateY(-1px); }
+    .btn-secondary {
+      background: var(--surface);
+      color: var(--text);
+      border: 2px solid var(--border);
+    }
+    .btn-secondary:hover { border-color: var(--accent); color: var(--accent); }
+    .btn-ghost {
+      background: transparent;
+      color: var(--muted);
+      border: 2px solid transparent;
+      padding: 9px 12px;
+    }
+    .btn-ghost:hover { background: #f0e8df; color: var(--text); }
+    .btn-danger {
+      background: #fff0f2;
+      color: var(--danger);
+      border: 2px solid #ffd0d7;
+    }
+    .btn-danger:hover { background: var(--danger); color: #fff; }
+    .btn-sm { font-size: 12px; padding: 6px 12px; border-radius: 8px; }
+    .btn-icon {
+      padding: 9px;
+      border-radius: 10px;
+      font-size: 18px;
+    }
+
+    /* ─── LAYOUT ─── */
+    main {
+      flex: 1;
+      display: grid;
+      grid-template-columns: 260px 1fr 280px;
+      grid-template-rows: 1fr;
+      gap: 0;
+      height: calc(100vh - 64px);
+      overflow: hidden;
+    }
+
+    /* ─── LEFT PANEL ─── */
+    .panel-left {
+      background: var(--surface);
+      border-right: 2px solid var(--border);
+      display: flex;
+      flex-direction: column;
+      overflow-y: auto;
+      padding: 20px 16px;
+      gap: 20px;
+    }
+    .panel-section-title {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 1.2px;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 10px;
+    }
+
+    /* Tools */
+    .tool-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+    }
+    .tool-btn {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+      padding: 10px 6px;
+      border: 2px solid var(--border);
+      border-radius: 12px;
+      background: var(--surface);
+      cursor: pointer;
+      font-family: var(--font-body);
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--muted);
+      transition: all 0.15s;
+    }
+    .tool-btn .tool-icon { font-size: 22px; }
+    .tool-btn:hover { border-color: var(--accent); color: var(--accent); background: #fff0f9; }
+    .tool-btn.active {
+      border-color: var(--accent);
+      background: #ffe8f7;
+      color: var(--accent);
+      box-shadow: 0 2px 8px rgba(232,0,160,0.2);
+    }
+
+    /* Brush size */
+    .brush-slider-wrap {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .brush-preview {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: #2d1f0f;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .brush-dot {
+      border-radius: 50%;
+      background: var(--surface);
+      transition: width 0.1s, height 0.1s;
+    }
+    input[type=range] {
+      -webkit-appearance: none;
+      flex: 1;
+      height: 6px;
+      border-radius: 3px;
+      background: var(--border);
+      outline: none;
+    }
+    input[type=range]::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      background: var(--accent);
+      cursor: pointer;
+      box-shadow: 0 2px 6px rgba(255,107,53,0.4);
+    }
+
+    /* Color palette */
+    .color-palette {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 7px;
+    }
+    .color-swatch {
+      width: 32px;
+      height: 32px;
+      border-radius: 8px;
+      cursor: pointer;
+      border: 3px solid transparent;
+      transition: transform 0.12s, border-color 0.12s;
+    }
+    .color-swatch:hover { transform: scale(1.18); }
+    .color-swatch.active {
+      border-color: var(--text);
+      transform: scale(1.1);
+      box-shadow: 0 0 0 2px var(--bg), 0 0 0 4px var(--text);
+    }
+    .color-custom {
+      width: 32px;
+      height: 32px;
+      border-radius: 8px;
+      border: 3px dashed var(--border);
+      cursor: pointer;
+      overflow: hidden;
+      position: relative;
+    }
+    .color-custom input[type=color] {
+      opacity: 0;
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      cursor: pointer;
+      border: none;
+    }
+    .color-custom-preview {
+      width: 100%;
+      height: 100%;
+      border-radius: 6px;
+      pointer-events: none;
+    }
+
+    /* Shorts color */
+    .shorts-color-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 7px;
+    }
+    .shorts-swatch {
+      width: 30px;
+      height: 30px;
+      border-radius: 8px;
+      cursor: pointer;
+      border: 3px solid transparent;
+      transition: transform 0.12s, border-color 0.12s;
+    }
+    .shorts-swatch:hover { transform: scale(1.15); }
+    .shorts-swatch.active {
+      border-color: var(--text);
+      box-shadow: 0 0 0 2px var(--bg), 0 0 0 4px var(--text);
+    }
+
+    /* ─── CANVAS AREA ─── */
+    .canvas-area {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      background: repeating-conic-gradient(#f0e8df 0% 25%, #fff9f0 0% 50%) 0 0 / 30px 30px;
+      position: relative;
+      overflow: hidden;
+    }
+    .canvas-wrap {
+      position: relative;
+      filter: drop-shadow(0 8px 32px rgba(0,0,0,0.18));
+    }
+    #shorts-svg {
+      display: block;
+      user-select: none;
+    }
+    #draw-canvas {
+      position: absolute;
+      top: 0; left: 0;
+      cursor: crosshair;
+    }
+    .canvas-hint {
+      position: absolute;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(45,31,15,0.7);
+      color: #fff;
+      font-size: 12px;
+      font-weight: 600;
+      padding: 6px 14px;
+      border-radius: 20px;
+      pointer-events: none;
+      opacity: 1;
+      transition: opacity 0.5s;
+    }
+    .canvas-hint.hidden { opacity: 0; }
+
+    /* ─── RIGHT PANEL ─── */
+    .panel-right {
+      background: var(--surface);
+      border-left: 2px solid var(--border);
+      display: flex;
+      flex-direction: column;
+      overflow-y: auto;
+      padding: 20px 16px;
+      gap: 20px;
+    }
+    .action-stack {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .action-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+    }
+
+    /* Gallery */
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+    }
+    .gallery-item {
+      border-radius: 12px;
+      border: 2px solid var(--border);
+      overflow: hidden;
+      cursor: pointer;
+      transition: border-color 0.15s, transform 0.15s;
+      background: #f9f3ec;
+      position: relative;
+    }
+    .gallery-item:hover { border-color: var(--accent); transform: scale(1.04); }
+    .gallery-item img { width: 100%; display: block; }
+    .gallery-empty {
+      grid-column: 1 / -1;
+      text-align: center;
+      font-size: 13px;
+      color: var(--muted);
+      padding: 16px 0;
+    }
+    .gallery-item-del {
+      position: absolute;
+      top: 4px; right: 4px;
+      background: rgba(0,0,0,0.45);
+      color: #fff;
+      border: none;
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      cursor: pointer;
+      font-size: 12px;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      line-height: 1;
+    }
+    .gallery-item:hover .gallery-item-del { display: flex; }
+
+    /* Share modal */
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(45,31,15,0.5);
+      z-index: 200;
+      align-items: center;
+      justify-content: center;
+    }
+    .modal-overlay.open { display: flex; }
+    .modal {
+      background: var(--surface);
+      border-radius: var(--radius);
+      padding: 32px;
+      max-width: 420px;
+      width: 90%;
+      box-shadow: var(--shadow-lg);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 16px;
+    }
+    .modal h2 {
+      font-family: var(--font-display);
+      font-size: 26px;
+      color: var(--accent);
+    }
+    .modal-preview {
+      width: 100%;
+      border-radius: 12px;
+      border: 2px solid var(--border);
+      background: #f9f3ec;
+      overflow: hidden;
+    }
+    .modal-preview img { width: 100%; display: block; }
+    .share-url-wrap {
+      display: flex;
+      gap: 8px;
+      width: 100%;
+    }
+    .share-url {
+      flex: 1;
+      border: 2px solid var(--border);
+      border-radius: 10px;
+      padding: 9px 12px;
+      font-size: 13px;
+      font-family: var(--font-body);
+      background: #f9f3ec;
+      color: var(--text);
+      outline: none;
+    }
+    .modal-actions { display: flex; gap: 8px; }
+
+    /* Toast */
+    .toast {
+      position: fixed;
+      bottom: 24px;
+      left: 50%;
+      transform: translateX(-50%) translateY(60px);
+      background: var(--text);
+      color: #fff;
+      padding: 10px 20px;
+      border-radius: 24px;
+      font-size: 14px;
+      font-weight: 600;
+      z-index: 300;
+      transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.3s;
+      opacity: 0;
+      pointer-events: none;
+    }
+    .toast.show { transform: translateX(-50%) translateY(0); opacity: 1; }
+
+    @media (max-width: 900px) {
+      main { grid-template-columns: 1fr; grid-template-rows: auto 1fr auto; }
+      .panel-left, .panel-right { max-height: 220px; overflow-x: auto; overflow-y: hidden; flex-direction: row; padding: 12px; }
+      .canvas-area { min-height: 340px; }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="logo">
+    <span class="logo-emoji">🩳</span> SillyShorts
+  </div>
+  <div class="header-actions">
+    <button class="btn btn-secondary btn-sm" id="btn-new">✦ New Shorts</button>
+    <button class="btn btn-primary btn-sm" id="btn-save-share">Share 🎉</button>
+  </div>
+</header>
+
+<main>
+  <!-- LEFT: Tools + Colors -->
+  <aside class="panel-left">
+    <div>
+      <div class="panel-section-title">Tools</div>
+      <div class="tool-grid">
+        <button class="tool-btn active" data-tool="pencil" title="Pencil">
+          <span class="tool-icon">✏️</span>Pencil
+        </button>
+        <button class="tool-btn" data-tool="brush" title="Brush">
+          <span class="tool-icon">🖌️</span>Brush
+        </button>
+        <button class="tool-btn" data-tool="fill" title="Fill Bucket">
+          <span class="tool-icon">🪣</span>Fill
+        </button>
+        <button class="tool-btn" data-tool="eraser" title="Eraser">
+          <span class="tool-icon">🧹</span>Eraser
+        </button>
+        <button class="tool-btn" data-tool="rect" title="Rectangle">
+          <span class="tool-icon">⬜</span>Rect
+        </button>
+        <button class="tool-btn" data-tool="circle" title="Circle">
+          <span class="tool-icon">⭕</span>Circle
+        </button>
+      </div>
+    </div>
+
+    <div>
+      <div class="panel-section-title">Brush Size</div>
+      <div class="brush-slider-wrap">
+        <div class="brush-preview">
+          <div class="brush-dot" id="brush-dot" style="width:6px;height:6px;"></div>
+        </div>
+        <input type="range" id="brush-size" min="1" max="60" value="8"/>
+        <span id="brush-size-label" style="font-size:13px;font-weight:700;min-width:28px;text-align:right;color:var(--muted)">8</span>
+      </div>
+    </div>
+
+    <div>
+      <div class="panel-section-title">Draw Color</div>
+      <div class="color-palette" id="color-palette"></div>
+    </div>
+
+    <div>
+      <div class="panel-section-title">Shorts Color</div>
+      <div class="shorts-color-grid" id="shorts-colors"></div>
+    </div>
+  </aside>
+
+  <!-- CENTER: Canvas -->
+  <section class="canvas-area" id="canvas-area">
+    <div class="canvas-wrap" id="canvas-wrap">
+      <svg id="shorts-svg" width="340" height="420" viewBox="0 0 340 420" xmlns="http://www.w3.org/2000/svg">
+        <!--
+          Shape based on reference:
+          - Thick waistband at top, full width
+          - Body narrows very slightly at sides
+          - Crotch curve dips in the centre
+          - Two legs flare outward and down, with folded hems
+          LEFT LEG outer edge goes down-left, RIGHT LEG outer edge goes down-right
+        -->
+        <defs>
+          <!--
+            BODY path (below waistband):
+            Start bottom-left of waistband, go down left outer leg,
+            across left leg hem, up left inner leg to crotch,
+            curve of crotch, down right inner leg,
+            across right leg hem, up right outer leg,
+            back to bottom-right of waistband.
+          -->
+          <clipPath id="shorts-clip">
+            <path id="shorts-clip-path" d="
+              M 22 70
+              L 318 70
+              C 326 70 332 76 332 84
+              L 332 84
+              C 332 84 325 175 310 220
+              C 300 248 284 290 272 350
+              C 268 368 264 382 258 390
+              C 254 396 248 400 240 400
+              L 220 400
+              C 210 400 204 394 200 384
+              C 192 362 185 320 180 300
+              C 175 320 168 362 160 384
+              C 156 394 150 400 140 400
+              L 120 400
+              C 112 400 106 396 102 390
+              C 96 382 92 368 88 350
+              C 76 290 60 248 50 220
+              C 35 175 28 84 28 84
+              C 28 76 22 70 22 70
+              Z
+            "/>
+          </clipPath>
+        </defs>
+
+        <!-- ── BODY ── -->
+        <path id="shorts-body" d="
+          M 22 70
+          L 318 70
+          C 326 70 332 76 332 84
+          C 332 84 325 175 310 220
+          C 300 248 284 290 272 350
+          C 268 368 264 382 258 390
+          C 254 396 248 400 240 400
+          L 220 400
+          C 210 400 204 394 200 384
+          C 192 362 185 320 180 300
+          C 175 320 168 362 160 384
+          C 156 394 150 400 140 400
+          L 120 400
+          C 112 400 106 396 102 390
+          C 96 382 92 368 88 350
+          C 76 290 60 248 50 220
+          C 35 175 28 84 28 84
+          C 22 76 22 70 22 70
+          Z
+        " fill="#3a86ff" stroke="rgba(0,0,0,0.14)" stroke-width="1.5" stroke-linejoin="round"/>
+
+        <!-- ── LEFT LEG HEM fold line ── -->
+        <path d="
+          M 50 222
+          C 56 238 64 258 72 278
+          C 80 298 84 320 88 352
+        " fill="none" stroke="rgba(255,255,255,0.22)" stroke-width="3" stroke-linecap="round"/>
+
+        <!-- ── RIGHT LEG HEM fold line ── -->
+        <path d="
+          M 290 222
+          C 284 238 276 258 268 278
+          C 260 298 256 320 252 352
+        " fill="none" stroke="rgba(255,255,255,0.22)" stroke-width="3" stroke-linecap="round"/>
+
+        <!-- ── CROTCH SEAM ── -->
+        <path d="M 180 300 C 175 270 168 240 160 215 C 152 190 145 160 140 130"
+          fill="none" stroke="rgba(0,0,0,0.10)" stroke-width="1.5" stroke-dasharray="4,4"/>
+        <path d="M 180 300 C 185 270 192 240 200 215 C 208 190 215 160 220 130"
+          fill="none" stroke="rgba(0,0,0,0.10)" stroke-width="1.5" stroke-dasharray="4,4"/>
+
+        <!-- ── LEFT SIDE SEAM ── -->
+        <path d="M 32 86 C 30 130 28 170 30 200" fill="none" stroke="rgba(0,0,0,0.08)" stroke-width="1"/>
+        <!-- ── RIGHT SIDE SEAM ── -->
+        <path d="M 308 86 C 310 130 312 170 310 200" fill="none" stroke="rgba(0,0,0,0.08)" stroke-width="1"/>
+
+        <!-- ── WAISTBAND ── -->
+        <rect id="shorts-waistband" x="20" y="8" width="300" height="64" rx="6"
+          fill="rgba(0,0,0,0.18)"/>
+
+        <!-- waistband rib lines -->
+        <line x1="20" y1="24" x2="320" y2="24" stroke="rgba(255,255,255,0.12)" stroke-width="1"/>
+        <line x1="20" y1="38" x2="320" y2="38" stroke="rgba(255,255,255,0.12)" stroke-width="1"/>
+        <line x1="20" y1="52" x2="320" y2="52" stroke="rgba(255,255,255,0.12)" stroke-width="1"/>
+
+        <!-- drawstring eyelets -->
+        <ellipse cx="148" cy="65" rx="4" ry="3" fill="rgba(0,0,0,0.30)"/>
+        <ellipse cx="192" cy="65" rx="4" ry="3" fill="rgba(0,0,0,0.30)"/>
+        <!-- drawstring -->
+        <path d="M 148 65 Q 170 57 192 65" fill="none" stroke="rgba(255,255,255,0.6)" stroke-width="2" stroke-linecap="round"/>
+
+        <!-- waistband label -->
+        <text x="170" y="34" text-anchor="middle"
+          font-family="Fredoka One, cursive" font-size="13"
+          fill="rgba(255,255,255,0.60)" letter-spacing="2.5">SILLYSHORTS</text>
+      </svg>
+      <canvas id="draw-canvas" width="340" height="420"></canvas>
+    </div>
+    <div class="canvas-hint" id="canvas-hint">🎨 Start doodling on your shorts!</div>
+  </section>
+
+  <!-- RIGHT: Actions + Gallery -->
+  <aside class="panel-right">
+    <div>
+      <div class="panel-section-title">Actions</div>
+      <div class="action-stack">
+        <div class="action-row">
+          <button class="btn btn-secondary btn-sm" id="btn-undo">↩ Undo</button>
+          <button class="btn btn-secondary btn-sm" id="btn-redo">↪ Redo</button>
+        </div>
+        <button class="btn btn-danger btn-sm" id="btn-clear">🗑 Clear Doodles</button>
+        <button class="btn btn-primary" id="btn-download">⬇ Download PNG</button>
+      </div>
+    </div>
+
+    <div>
+      <div class="panel-section-title">Saved Gallery</div>
+      <div class="gallery-grid" id="gallery-grid">
+        <div class="gallery-empty">No saved shorts yet!<br/>Hit Share to save one ✨</div>
+      </div>
+    </div>
+  </aside>
+</main>
+
+<!-- Share Modal -->
+<div class="modal-overlay" id="share-modal">
+  <div class="modal">
+    <h2>Share your Shorts! 🎉</h2>
+    <div class="modal-preview" id="modal-preview"></div>
+    <div class="share-url-wrap">
+      <input class="share-url" id="share-url-input" readonly value="https://sillyshorts.netlify.app/?id=demo"/>
+      <button class="btn btn-primary btn-sm" id="btn-copy-url">Copy</button>
+    </div>
+    <div class="modal-actions">
+      <button class="btn btn-primary" id="btn-modal-download">⬇ Download</button>
+      <button class="btn btn-secondary" id="btn-modal-close">Close</button>
+    </div>
+  </div>
+</div>
+
+<!-- Toast -->
+<div class="toast" id="toast"></div>
+
+<script>
+// ─── STATE ───────────────────────────────────
+const state = {
+  tool: 'pencil',
+  color: '#e63946',
+  brushSize: 8,
+  shortsColor: '#3a86ff',
+  drawing: false,
+  paths: [],       // [{tool, color, size, points, shape?}]
+  redoStack: [],
+  currentPath: null,
+  shapeStart: null,
+  gallery: [],
+};
+
+// ─── DOM ─────────────────────────────────────
+const canvas = document.getElementById('draw-canvas');
+const ctx = canvas.getContext('2d');
+const shortsSVG = document.getElementById('shorts-svg');
+const shortsBody = document.getElementById('shorts-body');
+const shortsWB   = document.getElementById('shorts-waistband');
+
+// ─── COLORS ──────────────────────────────────
+const DRAW_COLORS = [
+  '#e63946','#ff6b35','#ffbe0b','#06d6a0','#3a86ff',
+  '#8338ec','#ff006e','#fb5607','#ffffff','#2d1f0f',
+  '#adb5bd','#495057','#023e8a','#40916c','#9d0208',
+];
+const SHORTS_COLORS = [
+  '#3a86ff','#ff006e','#ffbe0b','#06d6a0','#8338ec',
+  '#ff6b35','#e63946','#2d1f0f','#adb5bd','#f8f9fa',
+  '#1b4332','#6a1c1c','#1a1a2e','#f72585',
+];
+
+function buildPalette() {
+  const palette = document.getElementById('color-palette');
+  DRAW_COLORS.forEach(c => {
+    const sw = document.createElement('div');
+    sw.className = 'color-swatch' + (c === state.color ? ' active' : '');
+    sw.style.background = c;
+    sw.style.border = c === '#ffffff' ? '2px solid #ccc' : '';
+    sw.addEventListener('click', () => setColor(c));
+    palette.appendChild(sw);
+  });
+  // Custom picker
+  const custom = document.createElement('div');
+  custom.className = 'color-custom';
+  custom.title = 'Custom color';
+  const preview = document.createElement('div');
+  preview.className = 'color-custom-preview';
+  preview.style.background = '#cccccc';
+  const inp = document.createElement('input');
+  inp.type = 'color';
+  inp.value = '#cc0000';
+  inp.addEventListener('input', () => {
+    preview.style.background = inp.value;
+    setColor(inp.value);
+  });
+  custom.appendChild(preview);
+  custom.appendChild(inp);
+  palette.appendChild(custom);
+}
+
+function buildShortsColors() {
+  const wrap = document.getElementById('shorts-colors');
+  SHORTS_COLORS.forEach(c => {
+    const sw = document.createElement('div');
+    sw.className = 'shorts-swatch' + (c === state.shortsColor ? ' active' : '');
+    sw.style.background = c;
+    sw.style.border = c === '#f8f9fa' ? '2px solid #ccc' : '';
+    sw.addEventListener('click', () => setShortsColor(c));
+    wrap.appendChild(sw);
+  });
+}
+
+function setColor(c) {
+  state.color = c;
+  document.querySelectorAll('.color-swatch').forEach(s => {
+    s.classList.toggle('active', s.style.backgroundColor === hexToRgb(c) || s.style.background === c);
+  });
+}
+
+function setShortsColor(c) {
+  state.shortsColor = c;
+  shortsBody.setAttribute('fill', c);
+  shortsWB.setAttribute('fill', adjustAlpha(c, 0.22));
+  document.querySelectorAll('.shorts-swatch').forEach(s => {
+    s.classList.toggle('active', s.style.background === c || s.style.backgroundColor === hexToRgb(c));
+  });
+}
+
+function hexToRgb(hex) {
+  const r = parseInt(hex.slice(1,3),16);
+  const g = parseInt(hex.slice(3,5),16);
+  const b = parseInt(hex.slice(5,7),16);
+  return `rgb(${r}, ${g}, ${b})`;
+}
+function adjustAlpha(hex, alpha) {
+  if (hex.length < 7) return `rgba(0,0,0,${alpha})`;
+  const r = parseInt(hex.slice(1,3),16);
+  const g = parseInt(hex.slice(3,5),16);
+  const b = parseInt(hex.slice(5,7),16);
+  return `rgba(${r},${g},${b},${alpha})`;
+}
+
+// ─── TOOLS ───────────────────────────────────
+document.querySelectorAll('.tool-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    state.tool = btn.dataset.tool;
+    document.querySelectorAll('.tool-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    canvas.style.cursor = state.tool === 'eraser' ? 'cell'
+      : state.tool === 'fill' ? 'copy' : 'crosshair';
+  });
+});
+
+// Brush size
+const brushInput = document.getElementById('brush-size');
+const brushLabel = document.getElementById('brush-size-label');
+const brushDot   = document.getElementById('brush-dot');
+brushInput.addEventListener('input', () => {
+  state.brushSize = +brushInput.value;
+  brushLabel.textContent = state.brushSize;
+  const dotPx = Math.min(state.brushSize, 24) + 'px';
+  brushDot.style.width = dotPx;
+  brushDot.style.height = dotPx;
+});
+
+// ─── SHORTS CLIP REGION ──────────────────────
+function getClipRegion2D() {
+  const p = new Path2D('M 22 70 L 318 70 C 326 70 332 76 332 84 C 332 84 325 175 310 220 C 300 248 284 290 272 350 C 268 368 264 382 258 390 C 254 396 248 400 240 400 L 220 400 C 210 400 204 394 200 384 C 192 362 185 320 180 300 C 175 320 168 362 160 384 C 156 394 150 400 140 400 L 120 400 C 112 400 106 396 102 390 C 96 382 92 368 88 350 C 76 290 60 248 50 220 C 35 175 28 84 28 84 C 22 76 22 70 22 70 Z');
+  return p;
+}
+
+// ─── DRAWING ─────────────────────────────────
+function getPos(e) {
+  const rect = canvas.getBoundingClientRect();
+  const scaleX = canvas.width / rect.width;
+  const scaleY = canvas.height / rect.height;
+  const src = e.touches ? e.touches[0] : e;
+  return {
+    x: (src.clientX - rect.left) * scaleX,
+    y: (src.clientY - rect.top) * scaleY,
+  };
+}
+
+function inShorts(x, y) {
+  return ctx.isPointInPath(getClipRegion2D(), x, y);
+}
+
+canvas.addEventListener('mousedown', startDraw);
+canvas.addEventListener('mousemove', doDraw);
+canvas.addEventListener('mouseup', endDraw);
+canvas.addEventListener('mouseleave', endDraw);
+canvas.addEventListener('touchstart', e => { e.preventDefault(); startDraw(e); }, { passive: false });
+canvas.addEventListener('touchmove', e => { e.preventDefault(); doDraw(e); }, { passive: false });
+canvas.addEventListener('touchend', endDraw);
+
+function startDraw(e) {
+  const {x,y} = getPos(e);
+  if (!inShorts(x, y)) return;
+
+  document.getElementById('canvas-hint').classList.add('hidden');
+
+  if (state.tool === 'fill') {
+    doFill(x, y);
+    return;
+  }
+  if (state.tool === 'rect' || state.tool === 'circle') {
+    state.shapeStart = {x,y};
+    state.drawing = true;
+    return;
+  }
+
+  state.drawing = true;
+  state.currentPath = {
+    tool: state.tool,
+    color: state.color,
+    size: state.brushSize,
+    points: [{x,y}],
+  };
+  redrawAll();
+}
+
+function doDraw(e) {
+  if (!state.drawing) return;
+  const {x,y} = getPos(e);
+
+  if (state.tool === 'rect' || state.tool === 'circle') {
+    redrawAll();
+    drawShapePreview(state.shapeStart, {x,y});
+    return;
+  }
+  if (!state.currentPath) return;
+  state.currentPath.points.push({x,y});
+  redrawAll();
+  drawStroke(state.currentPath, true);
+}
+
+function endDraw(e) {
+  if (!state.drawing) return;
+  state.drawing = false;
+  state.redoStack = [];
+
+  if ((state.tool === 'rect' || state.tool === 'circle') && state.shapeStart) {
+    const pos = e.touches ? {x: state.shapeStart.x, y: state.shapeStart.y} : getPos(e);
+    state.paths.push({
+      tool: state.tool,
+      color: state.color,
+      size: state.brushSize,
+      start: state.shapeStart,
+      end: pos,
+    });
+    state.shapeStart = null;
+    redrawAll();
+    return;
+  }
+
+  if (state.currentPath && state.currentPath.points.length > 0) {
+    state.paths.push(state.currentPath);
+  }
+  state.currentPath = null;
+  redrawAll();
+}
+
+function drawStroke(p, clipping=false) {
+  ctx.save();
+  if (clipping) ctx.clip(getClipRegion2D());
+  ctx.beginPath();
+  ctx.globalCompositeOperation = p.tool === 'eraser' ? 'destination-out' : 'source-over';
+  ctx.strokeStyle = p.tool === 'eraser' ? 'rgba(0,0,0,1)' : p.color;
+  ctx.lineWidth = p.size;
+  ctx.lineCap = 'round';
+  ctx.lineJoin = 'round';
+  if (p.tool === 'brush') {
+    ctx.globalAlpha = 0.55;
+    ctx.lineWidth = p.size * 1.8;
+  }
+  if (p.points.length === 1) {
+    ctx.arc(p.points[0].x, p.points[0].y, p.size/2, 0, Math.PI*2);
+    ctx.fillStyle = p.tool === 'eraser' ? 'rgba(0,0,0,1)' : p.color;
+    ctx.fill();
+  } else {
+    ctx.moveTo(p.points[0].x, p.points[0].y);
+    for (let i=1; i<p.points.length; i++) {
+      const mid = {x: (p.points[i-1].x + p.points[i].x)/2, y: (p.points[i-1].y + p.points[i].y)/2};
+      ctx.quadraticCurveTo(p.points[i-1].x, p.points[i-1].y, mid.x, mid.y);
+    }
+    ctx.stroke();
+  }
+  ctx.restore();
+}
+
+function drawShape(p, clipping=false) {
+  ctx.save();
+  if (clipping) ctx.clip(getClipRegion2D());
+  ctx.strokeStyle = p.color;
+  ctx.lineWidth = p.size;
+  ctx.lineCap = 'round';
+  ctx.globalCompositeOperation = 'source-over';
+  if (p.tool === 'rect') {
+    ctx.beginPath();
+    ctx.rect(p.start.x, p.start.y, p.end.x - p.start.x, p.end.y - p.start.y);
+    ctx.stroke();
+  } else if (p.tool === 'circle') {
+    const rx = Math.abs(p.end.x - p.start.x)/2;
+    const ry = Math.abs(p.end.y - p.start.y)/2;
+    const cx = (p.start.x + p.end.x)/2;
+    const cy = (p.start.y + p.end.y)/2;
+    ctx.beginPath();
+    ctx.ellipse(cx, cy, rx, ry, 0, 0, Math.PI*2);
+    ctx.stroke();
+  }
+  ctx.restore();
+}
+
+function drawShapePreview(start, end) {
+  ctx.save();
+  ctx.clip(getClipRegion2D());
+  ctx.strokeStyle = state.color;
+  ctx.lineWidth = state.brushSize;
+  ctx.lineCap = 'round';
+  ctx.setLineDash([6,4]);
+  if (state.tool === 'rect') {
+    ctx.beginPath();
+    ctx.rect(start.x, start.y, end.x-start.x, end.y-start.y);
+    ctx.stroke();
+  } else if (state.tool === 'circle') {
+    const rx = Math.abs(end.x-start.x)/2;
+    const ry = Math.abs(end.y-start.y)/2;
+    const cx = (start.x+end.x)/2, cy = (start.y+end.y)/2;
+    ctx.beginPath();
+    ctx.ellipse(cx, cy, rx, ry, 0, 0, Math.PI*2);
+    ctx.stroke();
+  }
+  ctx.restore();
+}
+
+function redrawAll() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  ctx.save();
+  ctx.clip(getClipRegion2D());
+  for (const p of state.paths) {
+    if (p.points) drawStroke(p, false);
+    else drawShape(p, false);
+  }
+  ctx.restore();
+  if (state.currentPath) drawStroke(state.currentPath, true);
+}
+
+// ─── FILL TOOL ───────────────────────────────
+function doFill(fx, fy) {
+  // Fill entire shorts region with draw color (simplified)
+  ctx.save();
+  ctx.clip(getClipRegion2D());
+  ctx.globalCompositeOperation = 'source-over';
+  ctx.fillStyle = state.color;
+  ctx.globalAlpha = 0.45;
+  ctx.fillRect(0, 0, canvas.width, canvas.height);
+  ctx.restore();
+  state.paths.push({ tool:'fill', color: state.color, fx, fy });
+  redrawAll();
+}
+
+// ─── UNDO / REDO ─────────────────────────────
+document.getElementById('btn-undo').addEventListener('click', () => {
+  if (!state.paths.length) return;
+  state.redoStack.push(state.paths.pop());
+  redrawAll();
+  toast('Undone ↩');
+});
+document.getElementById('btn-redo').addEventListener('click', () => {
+  if (!state.redoStack.length) return;
+  state.paths.push(state.redoStack.pop());
+  redrawAll();
+  toast('Redone ↪');
+});
+document.getElementById('btn-clear').addEventListener('click', () => {
+  state.redoStack = [...state.paths, ...state.redoStack];
+  state.paths = [];
+  redrawAll();
+  toast('Canvas cleared 🗑');
+});
+document.getElementById('btn-new').addEventListener('click', () => {
+  const colors = SHORTS_COLORS;
+  const rand = colors[Math.floor(Math.random()*colors.length)];
+  setShortsColor(rand);
+  state.paths = [];
+  state.redoStack = [];
+  redrawAll();
+  toast('New shorts! 🎲');
+  document.getElementById('canvas-hint').classList.remove('hidden');
+});
+
+// ─── EXPORT PNG ──────────────────────────────
+function exportPNG(callback) {
+  const offW = 340, offH = 420;
+  const off = document.createElement('canvas');
+  off.width = offW; off.height = offH;
+  const oc = off.getContext('2d');
+
+  // Draw shorts SVG to offscreen canvas
+  const svgData = new XMLSerializer().serializeToString(shortsSVG);
+  const img = new Image();
+  img.onload = () => {
+    oc.drawImage(img, 0, 0, offW, offH);
+    oc.drawImage(canvas, 0, 0);
+    callback(off.toDataURL('image/png'));
+  };
+  img.src = 'data:image/svg+xml;base64,' + btoa(unescape(encodeURIComponent(svgData)));
+}
+
+document.getElementById('btn-download').addEventListener('click', () => {
+  exportPNG(dataUrl => {
+    const a = document.createElement('a');
+    a.href = dataUrl;
+    a.download = 'sillyshorts.png';
+    a.click();
+    toast('Downloaded! ⬇');
+  });
+});
+
+// ─── GALLERY ─────────────────────────────────
+function refreshGallery() {
+  const grid = document.getElementById('gallery-grid');
+  grid.innerHTML = '';
+  if (!state.gallery.length) {
+    grid.innerHTML = '<div class="gallery-empty">No saved shorts yet!<br/>Hit Share to save one ✨</div>';
+    return;
+  }
+  state.gallery.forEach((item, i) => {
+    const div = document.createElement('div');
+    div.className = 'gallery-item';
+    const img = document.createElement('img');
+    img.src = item.dataUrl;
+    img.alt = 'Saved shorts';
+    const del = document.createElement('button');
+    del.className = 'gallery-item-del';
+    del.textContent = '×';
+    del.title = 'Remove';
+    del.addEventListener('click', e => {
+      e.stopPropagation();
+      state.gallery.splice(i, 1);
+      refreshGallery();
+    });
+    div.appendChild(img);
+    div.appendChild(del);
+    grid.appendChild(div);
+  });
+}
+
+// ─── SHARE MODAL ─────────────────────────────
+document.getElementById('btn-save-share').addEventListener('click', () => {
+  exportPNG(dataUrl => {
+    // Save to gallery
+    state.gallery.unshift({ dataUrl, date: Date.now() });
+    if (state.gallery.length > 12) state.gallery.pop();
+    refreshGallery();
+
+    // Open modal
+    const preview = document.getElementById('modal-preview');
+    preview.innerHTML = `<img src="${dataUrl}" alt="Your shorts"/>`;
+    const fakeId = Math.random().toString(36).slice(2,8).toUpperCase();
+    document.getElementById('share-url-input').value = `https://sillyshorts.netlify.app/?id=${fakeId}`;
+    document.getElementById('share-modal').classList.add('open');
+    toast('Saved to gallery! ✨');
+  });
+});
+
+document.getElementById('btn-modal-close').addEventListener('click', () => {
+  document.getElementById('share-modal').classList.remove('open');
+});
+document.getElementById('share-modal').addEventListener('click', e => {
+  if (e.target === document.getElementById('share-modal'))
+    document.getElementById('share-modal').classList.remove('open');
+});
+
+document.getElementById('btn-copy-url').addEventListener('click', () => {
+  const inp = document.getElementById('share-url-input');
+  navigator.clipboard.writeText(inp.value).then(() => toast('Link copied! 🔗'));
+});
+
+document.getElementById('btn-modal-download').addEventListener('click', () => {
+  const img = document.querySelector('#modal-preview img');
+  if (!img) return;
+  const a = document.createElement('a');
+  a.href = img.src;
+  a.download = 'sillyshorts.png';
+  a.click();
+  toast('Downloaded! ⬇');
+});
+
+// ─── TOAST ───────────────────────────────────
+let toastTimer;
+function toast(msg) {
+  const el = document.getElementById('toast');
+  el.textContent = msg;
+  el.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => el.classList.remove('show'), 2400);
+}
+
+// ─── INIT ─────────────────────────────────────
+buildPalette();
+buildShortsColors();
+setShortsColor(state.shortsColor);
+refreshGallery();
+</script>
+</body>
+</html>
